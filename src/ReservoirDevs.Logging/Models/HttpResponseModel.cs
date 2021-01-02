@@ -10,7 +10,7 @@ namespace ReservoirDevs.Logging.Models
 
         public override string ToString()
         {
-            return $"Body: {Body}";
+            return System.Text.Json.JsonSerializer.Serialize(this);
         }
     }
 }

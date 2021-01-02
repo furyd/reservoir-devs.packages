@@ -7,6 +7,7 @@ using Xunit;
 
 namespace ReservoirDevs.Logging.Tests.Unit
 {
+    // ReSharper disable once InconsistentNaming
     public class ILoggerExtensionsTests
     {
         private const string TypeKey = "type";

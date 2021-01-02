@@ -11,7 +11,6 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
     <PackageReference Include="Moq" Version="4.15.2" />
-    <PackageReference Include="ReservoirDevs.Test.Helpers" Version="1.0.1-alpha" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -25,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\ReservoirDevs.Logging\ReservoirDevs.Logging.csproj" />
+    <ProjectReference Include="..\..\..\src\ReservoirDevs.Test.Helpers\ReservoirDevs.Test.Helpers.csproj" />
   </ItemGroup>
 
 </Project>
