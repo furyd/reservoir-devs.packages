@@ -21,8 +21,8 @@ namespace ReservoirDevs.Logging.Tests.Unit
         private readonly Mock<ILogger<LogRequestsAndResponsesMiddleware>> _logger;
         private readonly HttpRequestModel _requestModel;
         
-        private static MethodInfo MapHttpRequest => ReflectionHelper.GetMethod<LogRequestsAndResponsesMiddleware>("MapHttpRequest");
-        private static MethodInfo MapHttpResponse => ReflectionHelper.GetMethod<LogRequestsAndResponsesMiddleware>("MapHttpResponse");
+        private static MethodInfo MapHttpRequest => ReflectionHelper.GetStaticMethod<LogRequestsAndResponsesMiddleware>("MapHttpRequest");
+        private static MethodInfo MapHttpResponse => ReflectionHelper.GetStaticMethod<LogRequestsAndResponsesMiddleware>("MapHttpResponse");
 
         public LogRequestsAndResponsesMiddlewareTests()
         {
@@ -77,8 +77,14 @@ namespace ReservoirDevs.Logging.Tests.Unit
                 Host = "B",
                 Path = "/C",
                 Body = "testing",
-                Headers = new List<KeyValuePair<string, string>> {  new KeyValuePair<string, string>("D", "E")},
-                Querystring = "F"
+                Querystring = "?F=G"
+            };
+
+            requestModel.Headers = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("Host", requestModel.Host),
+                new KeyValuePair<string, string>("Content-Length", requestModel.Body.Length.ToString()),
+                new KeyValuePair<string, string>("D", "E")
             };
 
             var responseModel = new HttpResponseModel
@@ -92,16 +98,17 @@ namespace ReservoirDevs.Logging.Tests.Unit
             httpContext.Request.Scheme = requestModel.Scheme;
             httpContext.Request.Host = new HostString(requestModel.Host);
             httpContext.Request.Path = requestModel.Path;
-            httpContext.Request.QueryString = new QueryString("?F=G");
+            httpContext.Request.QueryString = new QueryString(requestModel.Querystring);
             httpContext.Request.Body = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(requestModel.Body));
             httpContext.Request.ContentLength = requestModel.Body.Length;
-            httpContext.Request.Headers.Add(requestModel.Headers.First().Key, requestModel.Headers.First().Value);
+            httpContext.Request.Headers.Add(requestModel.Headers.Last().Key, requestModel.Headers.Last().Value);
 
             var sut = new LogRequestsAndResponsesMiddleware(innerContext =>
             {
+                innerContext.Response.Headers.Add("Host", requestModel.Host);
                 innerContext.Response.Body = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(responseModel.Body));
                 innerContext.Response.ContentLength = responseModel.Body.Length;
-                innerContext.Response.Headers.Add(responseModel.Headers.First().Key, responseModel.Headers.First().Value);
+                innerContext.Response.Headers.Add(responseModel.Headers.Last().Key, responseModel.Headers.Last().Value);
                 return Task.FromResult(0);
             }, _logger.Object);
 
