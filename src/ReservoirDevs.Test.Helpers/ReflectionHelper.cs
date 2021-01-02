@@ -29,10 +29,17 @@ namespace ReservoirDevs.Test.Helpers
             return (TOutput)field.GetValue(input);
         }
 
-        public static MethodInfo GetMethod<TInput>(string methodName)
+        [Obsolete("Use GetStaticMethod instead")]
+        public static MethodInfo GetMethod<TInput>(string methodName) => GetMethod<TInput>(methodName, BindingFlags.NonPublic | BindingFlags.Static);
+
+        public static MethodInfo GetStaticMethod<TInput>(string methodName) => GetMethod<TInput>(methodName, BindingFlags.NonPublic | BindingFlags.Static);
+
+        public static MethodInfo GetInstanceMethod<TInput>(string methodName) => GetMethod<TInput>(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
+
+        private static MethodInfo GetMethod<TInput>(string methodName, BindingFlags bindingFlags)
         {
-            var method = typeof(TInput).GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static);
-            
+            var method = typeof(TInput).GetMethod(methodName, bindingFlags);
+
             return method ?? throw new Exception($"{methodName} not found");
         }
     }
