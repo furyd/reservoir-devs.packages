@@ -72,7 +72,7 @@ namespace ReservoirDevs.Logging.Middleware
                 Host = httpContext.Request.Host.ToString(),
                 Path = httpContext.Request.Path.ToString(),
                 Querystring = httpContext.Request.QueryString.ToString(),
-                Headers = httpContext.Request.Headers.Select(header => new KeyValuePair<string, string>(header.Key, header.Value.ToString()))
+                Headers = httpContext.Request.Headers.Select(header => new KeyValuePair<string, string>(header.Key, header.Value.ToString("")))
             };
 
             if (!httpContext.Request.ContentLength.HasValue || httpContext.Request.ContentLength.Value == 0)
@@ -86,9 +86,11 @@ namespace ReservoirDevs.Logging.Middleware
 
         private static async Task<HttpResponseModel> MapHttpResponse(HttpContext httpContext, Stream stream)
         {
+            var headers = httpContext.Response.Headers.Select(header => new KeyValuePair<string, string>(header.Key, header.Value.ToString(""))).ToList();
+
             var model = new HttpResponseModel
             {
-                Headers = httpContext.Response.Headers.Select(header => new KeyValuePair<string, string>(header.Key, header.Value.ToString()))
+                Headers = headers
             };
 
             if (httpContext.Response.Body == null || !httpContext.Response.ContentLength.HasValue || httpContext.Response.ContentLength.Value == 0)

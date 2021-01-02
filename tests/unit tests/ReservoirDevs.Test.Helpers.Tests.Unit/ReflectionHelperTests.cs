@@ -10,6 +10,7 @@ namespace ReservoirDevs.Test.Helpers.Tests.Unit
 
         private string PrivateProperty => nameof(PrivateProperty);
 
+        // ReSharper disable once InconsistentNaming
         private string PrivateStaticMethod = nameof(PrivateStaticMethod);
 
         [Fact]
