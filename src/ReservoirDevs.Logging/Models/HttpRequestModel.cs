@@ -9,5 +9,10 @@
         public string Path { get; set; }
 
         public string Querystring { get; set; }
+
+        public override string ToString()
+        {
+            return System.Text.Json.JsonSerializer.Serialize(this);
+        }
     }
 }
