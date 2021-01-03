@@ -2,13 +2,10 @@
 
 namespace ReservoirDevs.Models.Result
 {
-    public class ResultModel : ResultModelBase
+    public record ResultModel
     {
-        public ResultModel() { }
+        public Exception Exception { get; init; }
 
-        public ResultModel(Exception exception)
-        {
-            Exception = exception ?? throw new ArgumentNullException(nameof(exception));
-        }
+        public bool IsSuccessful => Exception == null;
     }
 }

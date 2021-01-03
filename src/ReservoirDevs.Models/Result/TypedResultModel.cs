@@ -1,27 +1,9 @@
-﻿using System;
-
-namespace ReservoirDevs.Models.Result
+﻿namespace ReservoirDevs.Models.Result
 {
-    public class TypedResultModel<T> : ResultModelBase where T : class
+    public record ResultModel<T> : ResultModel
     {
-        public T Item { get; }
+        public T Item { get; init; }
 
         public bool HasItem => Item != null;
-
-        public TypedResultModel(T item)
-        {
-            Item = item ?? throw new ArgumentNullException(nameof(item));
-        }
-
-        public TypedResultModel(Exception exception)
-        {
-            Exception = exception ?? throw new ArgumentNullException(nameof(exception));
-        }
-
-        public TypedResultModel(T item, Exception exception)
-        {
-            Item = item ?? throw new ArgumentNullException(nameof(item));
-            Exception = exception ?? throw new ArgumentNullException(nameof(exception));
-        }
     }
 }
