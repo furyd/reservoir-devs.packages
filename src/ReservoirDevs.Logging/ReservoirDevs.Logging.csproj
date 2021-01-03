@@ -5,7 +5,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>Reservoir Devs Limited</Authors>
     <Company>Reservoir Devs Limited</Company>
-    <Version>3.1.0</Version>
+    <Version>3.1.1</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
