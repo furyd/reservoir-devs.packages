@@ -12,7 +12,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
-    <PackageReference Include="ReservoirDevs.Idempotence" Version="1.0.1-alpha" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -25,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\src\ReservoirDevs.Idempotence\ReservoirDevs.Idempotence.csproj" />
     <ProjectReference Include="..\ReservoirDevs.Tests.Integration.Common\ReservoirDevs.Tests.Integration.Common.csproj" />
   </ItemGroup>
 
