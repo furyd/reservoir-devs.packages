@@ -90,25 +90,25 @@ namespace ReservoirDevs.Test.Helpers.Tests.Unit
         }
 
         [Fact]
-        public void GetMethod_DoesNotThrowException_WhenMethodExists()
+        public void GetStaticMethod_DoesNotThrowException_WhenMethodExists()
         {
-            Action action = () => ReflectionHelper.GetMethod<HarnessClass>(PrivateStaticMethod);
+            Action action = () => ReflectionHelper.GetStaticMethod<HarnessClass>(PrivateStaticMethod);
 
             action.Should().NotThrow();
         }
 
         [Fact]
-        public void GetMethod_ThrowsException_WhenMethodDoesNotExist()
+        public void GetStaticMethod_ThrowsException_WhenMethodDoesNotExist()
         {
-            Action action = () => ReflectionHelper.GetMethod<HarnessClass>($"{PrivateStaticMethod}a");
+            Action action = () => ReflectionHelper.GetStaticMethod<HarnessClass>($"{PrivateStaticMethod}a");
 
             action.Should().Throw<Exception>();
         }
 
         [Fact]
-        public void GetMethod_ReturnsValue()
+        public void GetStaticMethod_ReturnsValue()
         {
-            var sut = ReflectionHelper.GetMethod<HarnessClass>(PrivateStaticMethod);
+            var sut = ReflectionHelper.GetStaticMethod<HarnessClass>(PrivateStaticMethod);
 
             sut.Should().NotBeNull();
             
